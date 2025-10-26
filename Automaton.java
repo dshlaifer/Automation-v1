@@ -13,6 +13,8 @@ public class Automaton
     // The state of the cells.
     private int[] state;
     
+    private int[] nextState;
+    
     /**
      * Create a 1D automaton consisting of the given number of cells.
      * @param numberOfCells The number of cells in the automaton.
@@ -20,7 +22,7 @@ public class Automaton
     public Automaton(int numberOfCells)
     {
         this.numberOfCells = numberOfCells;
-        state = new int[numberOfCells];
+        state = new int[numberOfCells + 1];
         // Seed the automaton with a single 'on' cell in the middle.
         state[numberOfCells / 2] = 1;
     }
@@ -44,27 +46,29 @@ public class Automaton
     /**
      * Update the automaton to its next state.
      */
-    public void update()
+    public void update() // 34 and 36
     {
-        int left = 0;  //.. imaginary left neighbor of cell 0
-        int center = state[0];  // current cell
-        int right;
-        for (int i = 0; i < state.length; i++) {
-            //determine right neighbor (next cell)
-            if (i + 1 < state.length) {
-                right = state[i + 1];
-            
-        } else { 
-            right = 0;
-    }
-}
-int newValue = (left + center + right) % 2;
-left = center;
-center = right;
-// new value to current position
-state[i] = newValue;
-}
-    
+        int left = 0;
+        int center = state[0];
+        for(int i = 0; i<numberOfCells; i++) {
+            int right = i + 1 < state.length ? state[i+1] : 0;
+            nextState[i] = calculateNextState(left, center, right);
+            left = center;
+            center = right;
+        }
+        for (int i = 0; i < numberOfCells; i++) {
+            state[i] = nextState[i];
+        }
+        // last element should always be 0
+        state[numberOfCells] = 0;
+
+        // new hulper method for calculation at the bottom 34-35
+        
+        }private int calculateNextState(int left, int right, int center) {
+            return (left + center + right * right + left * center * right) % 2;
+        }
+  
+
     /**
      * Reset the automaton.
      */
