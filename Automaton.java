@@ -61,9 +61,9 @@ public class Automaton
         }
         state[numberOfCells] = 0;
     }
-    private int calculateNextState(int left, int center, int right)
+    private int calculateNextState(int left, int center, int right) // question 35
     {
-        return (left + center + right) % 2;
+        (center + right + center * right + left * center * right) % 2;
     }
     
         
