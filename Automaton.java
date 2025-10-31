@@ -55,7 +55,8 @@ public class Automaton
             int center = state[i];
             int right = (i == numberOfCells - 1) ? 0 : state[i + 1];
             
-            nextState = calculateNextState(left, center, right);
+            // state instead of nextState will make cell mix ups. question 31
+            state = calculateNextState(left, center, right);
 
         }
         for (int i = 0; i < numberOfCells; i++) {
