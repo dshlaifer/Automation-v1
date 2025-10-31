@@ -19,7 +19,7 @@ public class Automaton
      * Create a 1D automaton consisting of the given number of cells.
      * @param numberOfCells The number of cells in the automaton.
      */
-    public Automaton(int numberOfCells)
+    public Automaton(int numberOfCells) // question 33
     {
         this.numberOfCells = numberOfCells;
         state = new int[numberOfCells + 1];
@@ -46,7 +46,7 @@ public class Automaton
     /**
      * Update the automaton to its next state.
      */
-    public void update() // question 32    {
+    public void update() // question 33    {
         int left = 0;
         int center = state[0];
         for(int i = 0; i<numberOfCells; i++) {
@@ -60,25 +60,11 @@ public class Automaton
             left = center;
             center = right;
         }
-        state[numberOfCells] = 0;
-        
-
-        }private int calculateNextState(int left, int right, int center) {
-            return (left + center + right * right + left * center * right) % 2;
+        for (int i = 0; i < numberOfCells; i++) {
+            state[i] = nextState[i];
         }
-  
-
-    /**
-     * Reset the automaton.
-     */
-    public void reset()
-    {
-        Arrays.fill(state, 0);
-        // Seed the automaton with a single 'on' cell.
-        // Randomly turn on 5 cells
-        for (int i = 0; i <5; i++) {
-            int index = (int)(Math.random() * numberOfCells);
-            state[index] = 1;
+        state[numberOfCells] = 0;
     }
-}
-}
+        
+    
+
