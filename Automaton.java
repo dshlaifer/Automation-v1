@@ -46,17 +46,13 @@ public class Automaton
     /**
      * Update the automaton to its next state.
      */
-    public void update() // question 33    {
+    public void update() // question 34   
+    {
         int left = 0;
         int center = state[0];
-        for(int i = 0; i<numberOfCells; i++) {
-            int right = (i == numberOfCells - 1) ? 0 : state[i + 1]; //neigbor to the right
-            int newCenter = calculateNextState(left , center, right);
-            
-            // new value for this cell
-            state[i] = newCenter;
-            
-            // for next iteration
+        for (int i = 0; i < numberOfCells; i++) {
+            int right = state[i + 1];
+            nextState[i] = calculateNextState(left, center, right);
             left = center;
             center = right;
         }
@@ -65,6 +61,11 @@ public class Automaton
         }
         state[numberOfCells] = 0;
     }
+    private int calculateNextState(int left, int center, int right)
+    {
+        return (left + center + right) % 2;
+    }
+    
         
     
-
+}
