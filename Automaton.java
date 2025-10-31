@@ -46,27 +46,23 @@ public class Automaton
     /**
      * Update the automaton to its next state.
      */
-    public void update() //  question 30
-    {
+    public void update() // question 32    {
         int left = 0;
         int center = state[0];
         for(int i = 0; i<numberOfCells; i++) {
-            int left = (1 == 0) ? 0 : state[i - 1];
-            int center = state[i];
-            int right = (i == numberOfCells - 1) ? 0 : state[i + 1];
+            int right = (i == numberOfCells - 1) ? 0 : state[i + 1]; //neigbor to the right
+            int newCenter = calculateNextState(left , center, right);
             
-            // state instead of nextState will make cell mix ups. question 31
-            state = calculateNextState(left, center, right);
-
+            // new value for this cell
+            state[i] = newCenter;
+            
+            // for next iteration
+            left = center;
+            center = right;
         }
-        for (int i = 0; i < numberOfCells; i++) {
-            state[i] = nextState[i];
-        }
-        // last element should always be 0
         state[numberOfCells] = 0;
-
-        // new hulper method for calculation at the bottom 34-35
         
+
         }private int calculateNextState(int left, int right, int center) {
             return (left + center + right * right + left * center * right) % 2;
         }
