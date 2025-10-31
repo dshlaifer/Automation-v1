@@ -46,15 +46,17 @@ public class Automaton
     /**
      * Update the automaton to its next state.
      */
-    public void update() // 34 and 36
+    public void update() //  question 30
     {
         int left = 0;
         int center = state[0];
         for(int i = 0; i<numberOfCells; i++) {
-            int right = i + 1 < state.length ? state[i+1] : 0;
-            nextState[i] = calculateNextState(left, center, right);
-            left = center;
-            center = right;
+            int left = (1 == 0) ? 0 : state[i - 1];
+            int center = state[i];
+            int right = (i == numberOfCells - 1) ? 0 : state[i + 1];
+            
+            nextState = calculateNextState(left, center, right);
+
         }
         for (int i = 0; i < numberOfCells; i++) {
             state[i] = nextState[i];
